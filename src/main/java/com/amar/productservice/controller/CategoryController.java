@@ -1,9 +1,7 @@
 package com.amar.productservice.controller;
 
-import com.amar.productservice.model.Category;
 import com.amar.productservice.model.Product;
 import com.amar.productservice.service.CategoryService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

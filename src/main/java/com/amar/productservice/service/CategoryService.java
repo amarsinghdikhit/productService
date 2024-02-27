@@ -1,6 +1,5 @@
 package com.amar.productservice.service;
 
-import com.amar.productservice.model.Category;
 import com.amar.productservice.model.Product;
 
 import java.util.List;

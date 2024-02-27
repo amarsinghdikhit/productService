@@ -1,6 +1,5 @@
 package com.amar.productservice.service;
 
-import com.amar.productservice.dto.CategoryDto;
 import com.amar.productservice.dto.FakeStoreProductDto;
 import com.amar.productservice.model.Category;
 import com.amar.productservice.model.Product;
