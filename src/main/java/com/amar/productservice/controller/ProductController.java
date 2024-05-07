@@ -4,6 +4,7 @@ import com.amar.productservice.model.Product;
 import com.amar.productservice.request.ProductRequest;
 import com.amar.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +15,16 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("selfProductService") ProductService productService){
         this.productService = productService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id){
-        return new ResponseEntity<>(productService.getSingLeProduct(id), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getSingleProduct(id), HttpStatus.OK);
     }
 
     @GetMapping
@@ -32,7 +33,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product addNewProduct(@RequestBody ProductRequest addProductReq){
+    public Product addNewProduct(@RequestBody Product addProductReq){
         return productService.addProduct(addProductReq);
     }
 
