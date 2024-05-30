@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class FakeStoreCategoryServiceImpl implements CategoryService{
 
     private RestTemplate restTemplate;
 
     @Autowired
-    CategoryServiceImpl(RestTemplate restTemplate){
+    FakeStoreCategoryServiceImpl(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
     @Override

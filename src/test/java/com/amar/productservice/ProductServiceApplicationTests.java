@@ -1,21 +1,21 @@
 package com.amar.productservice;
 
+import com.amar.productservice.model.Product;
 import com.amar.productservice.repository.ProductRepository;
+import com.amar.productservice.repository.projections.ProductWithIdAndTitle;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 class ProductServiceApplicationTests {
 
     @Autowired
     private ProductRepository productRepository;
-
-//    public ProductServiceApplicationTests(ProductRepository productRepository){
-//        this.productRepository = productRepository;
-//    }
 
     @Test
     void contextLoads() {
@@ -25,8 +25,18 @@ class ProductServiceApplicationTests {
     @Transactional
     @Commit
     void testQueries(){
-        productRepository.findByTitleContaining("amar");
+        List<ProductWithIdAndTitle> products = productRepository.retrieveProdcutList(111L);
 
-        productRepository.deleteByTitleIgnoreCase("amar");
+        for(ProductWithIdAndTitle product: products){
+            System.out.println(product.getId());
+            System.out.println(product.getDescription());
+        }
+
+        List<Product> productByNativeQuery = productRepository.retrieveProductListByNativeQuery();
+
+        for(Product product: productByNativeQuery){
+            System.out.println(product.getId());
+            System.out.println(product.getDescription());
+        }
     }
  }

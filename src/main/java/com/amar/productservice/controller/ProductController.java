@@ -33,8 +33,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product addNewProduct(@RequestBody Product addProductReq){
-        return productService.addProduct(addProductReq);
+    public ResponseEntity<Product> addNewProduct(@RequestBody Product addProductReq){
+        return new ResponseEntity<>(productService.addProduct(addProductReq), HttpStatus.ACCEPTED);
     }
 
     @PatchMapping("/{id}")

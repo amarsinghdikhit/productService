@@ -3,6 +3,7 @@ package com.amar.productservice.controller;
 import com.amar.productservice.model.Product;
 import com.amar.productservice.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @Autowired
-    CategoryController(CategoryService service){
+    CategoryController(@Qualifier("selfCategoryService") CategoryService service){
         this.categoryService = service;
     }
 

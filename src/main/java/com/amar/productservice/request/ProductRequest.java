@@ -16,4 +16,7 @@ public class ProductRequest {
     private String image;
 
     private String category;
+
+    private boolean isDeleted;
+
 }
