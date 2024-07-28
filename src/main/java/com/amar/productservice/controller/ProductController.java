@@ -1,5 +1,6 @@
 package com.amar.productservice.controller;
 
+import com.amar.productservice.commons.AuthenticateCommon;
 import com.amar.productservice.model.Product;
 import com.amar.productservice.request.ProductRequest;
 import com.amar.productservice.service.ProductService;
@@ -17,9 +18,12 @@ public class ProductController {
 
     private final ProductService productService;
 
+    private final AuthenticateCommon authenticateCommon;
+
     @Autowired
-    public ProductController(@Qualifier("selfProductService") ProductService productService){
+    public ProductController(@Qualifier("selfProductService") ProductService productService, AuthenticateCommon authenticateCommon){
         this.productService = productService;
+        this.authenticateCommon = authenticateCommon;
     }
 
     @GetMapping("/{id}")
@@ -29,6 +33,9 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts(){
+//        if(authenticateCommon.validateToken(token) == null){
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
