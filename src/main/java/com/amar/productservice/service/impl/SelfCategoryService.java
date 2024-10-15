@@ -1,15 +1,16 @@
-package com.amar.productservice.service;
+package com.amar.productservice.service.impl;
 
 import com.amar.productservice.model.Category;
 import com.amar.productservice.model.Product;
 import com.amar.productservice.repository.CategoryRepository;
+import com.amar.productservice.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("selfCategoryService")
-public class SelfCategoryService implements CategoryService{
+public class SelfCategoryService implements CategoryService {
 
 
     private CategoryRepository categoryRepository;

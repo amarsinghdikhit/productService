@@ -1,8 +1,9 @@
-package com.amar.productservice.service;
+package com.amar.productservice.service.impl;
 
 import com.amar.productservice.dto.FakeStoreProductDto;
 import com.amar.productservice.model.Category;
 import com.amar.productservice.model.Product;
+import com.amar.productservice.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FakeStoreCategoryServiceImpl implements CategoryService{
+public class FakeStoreCategoryServiceImpl implements CategoryService {
 
     private RestTemplate restTemplate;
 

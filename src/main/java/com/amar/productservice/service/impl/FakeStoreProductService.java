@@ -1,10 +1,13 @@
-package com.amar.productservice.service;
+package com.amar.productservice.service.impl;
 
 import com.amar.productservice.dto.FakeStoreProductDto;
 import com.amar.productservice.model.Category;
 import com.amar.productservice.model.Product;
 import com.amar.productservice.request.ProductRequest;
+import com.amar.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,24 +21,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("fakeStoreProductService")
-public class FakeStoreProductService implements ProductService{
+@Primary
+public class FakeStoreProductService implements ProductService {
 
     private RestTemplate restTemplate;
 
+    private RedisTemplate<String, Object> redisTemplate;
+
     @Autowired
-    public FakeStoreProductService(RestTemplate restTemplate){
+    public FakeStoreProductService(RestTemplate restTemplate, RedisTemplate redisTemplate){
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
     @Override
     public Product getSingleProduct(Long id) {
-        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/1",
+
+        Product p = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PRODUCT_"+id);
+        if(p != null){
+            return p;
+        }
+
+
+        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/"+ id,
                 FakeStoreProductDto.class);
-        return fakeStoreProductTOProduct(fakeStoreProductDto);
+        Product p1 = fakeStoreProductTOProduct(fakeStoreProductDto);
+        redisTemplate.opsForHash().put("PRODUCTS", "PRODUCT_"+id, p1);
+        return p1;
     }
 
     //Concept of type erasure
     @Override
     public List<Product> getAllProducts() {
+
+        List<Product> pList = (List<Product>) redisTemplate.opsForHash().get("PRODUCTS", "ALL_PRODUCTS");
+        if(pList != null){
+            return pList;
+        }
         FakeStoreProductDto[] response = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDto[].class);
         List<Product> productList = new ArrayList<>();
         if(response != null) {
@@ -43,6 +64,7 @@ public class FakeStoreProductService implements ProductService{
                 productList.add(fakeStoreProductTOProduct(dto));
             }
         }
+        redisTemplate.opsForHash().put("PRODUCTS", "ALL_PRODUCTS", productList);
         return productList;
     }
 

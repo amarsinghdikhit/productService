@@ -21,7 +21,7 @@ public class ProductController {
     private final AuthenticateCommon authenticateCommon;
 
     @Autowired
-    public ProductController(@Qualifier("selfProductService") ProductService productService, AuthenticateCommon authenticateCommon){
+    public ProductController( ProductService productService, AuthenticateCommon authenticateCommon){
         this.productService = productService;
         this.authenticateCommon = authenticateCommon;
     }

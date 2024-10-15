@@ -1,4 +1,4 @@
-package com.amar.productservice.service;
+package com.amar.productservice.service.impl;
 
 import com.amar.productservice.exception.ProductNotFoundException;
 import com.amar.productservice.model.Category;
@@ -6,7 +6,7 @@ import com.amar.productservice.model.Product;
 import com.amar.productservice.repository.CategoryRepository;
 import com.amar.productservice.repository.ProductRepository;
 import com.amar.productservice.request.ProductRequest;
-import org.springframework.context.annotation.Primary;
+import com.amar.productservice.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("selfProductService")
-@Primary
-public class SelfProductService implements ProductService{
+public class SelfProductService implements ProductService {
 
     private ProductRepository productRepository;
 
